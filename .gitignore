@@ -1,0 +1,23 @@
+# --- secrets: never commit a live credential ------------------------
+.env
+*.env
+!.env.example
+
+# --- Python ----------------------------------------------------------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.ipynb_checkpoints/
+
+# --- generated run outputs (the shipped notebook is tracked) --------
+_executed_*.ipynb
+_failed_*.ipynb
+
+# --- fine-tuning output ---------------------------------------------
+atlas-lora/
+
+# --- local caches & run artifacts (large, not for VCS) ---------------
+hf_cache/
+checkpoints/

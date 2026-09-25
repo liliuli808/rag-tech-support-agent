@@ -1,0 +1,77 @@
+# =====================================================================
+# Technical Support AI Agent (RAG) - Python dependencies
+# =====================================================================
+# Install with:  python -m pip install -r requirements.txt
+#
+# Requires an OpenAI-compatible API endpoint for generation. Credentials and
+# BASE URL are read from `.env` (copy .env.example to .env). There is no
+# offline mode: embeddings may run locally, generation may not.
+#
+# If you intend to use the local embedding backend (EMBED_BACKEND=local),
+# install torch FIRST from the CPU-only index. The default PyPI build is the
+# CUDA one (~2.5 GB) and is pure dead weight without an NVIDIA GPU:
+#
+#     pip install torch --index-url https://download.pytorch.org/whl/cpu
+#     pip install -r requirements.txt
+#
+# tools/setup_wsl.sh already does this in the right order.
+# =====================================================================
+
+# --- core numerics and data -----------------------------------------
+numpy>=2.0
+pandas>=2.2
+
+# --- visualisation --------------------------------------------------
+matplotlib>=3.9
+
+# --- LangChain (LCEL chain, text splitters, prompt templates) -------
+langchain>=0.3
+langchain-core>=0.3
+langchain-text-splitters>=0.3
+
+# --- OpenAI-compatible client ---------------------------------------
+# langchain-openai drives both the embeddings and the chat completion;
+# `openai` is used directly for the section 3 preflight probes.
+langchain-openai>=0.2
+openai>=1.40
+
+# --- vector store ---------------------------------------------------
+faiss-cpu>=1.8          # exact inner-product / cosine search
+
+# --- tokenizer ------------------------------------------------------
+tiktoken>=0.7
+
+# --- configuration --------------------------------------------------
+python-dotenv>=1.0      # reads OPENAI_* settings from .env
+
+# --- local embedding backend (EMBED_BACKEND=local) ------------------
+# Pulls transformers + huggingface-hub and reuses the torch installed above.
+# Nothing here is needed when EMBED_BACKEND=api, which is the default - so a
+# machine that only ever embeds through the endpoint can skip this line
+# entirely and save the torch download.
+sentence-transformers>=3.0
+
+# --- multilingual support (Chinese / Russian questions) -------------
+# jieba segments Chinese text for the lexical groundedness gate. Russian and
+# other Cyrillic scripts need no extra package - the tokeniser regex covers
+# them. Only import-heavy when questions or the knowledge base contain Chinese.
+jieba>=0.42
+
+# --- fine-tuning the embedder (section 12) --------------------------
+# Section 12 actually trains the local embedder with sentence-transformers'
+# Trainer, which additionally needs `datasets` (for the InputExample records)
+# and `accelerate`. Section 12.1 checks for them and would otherwise pip-install
+# them mid-run, which breaks on a machine with no network at execution time.
+# Skip these two lines only if you intend to stop at section 11.
+datasets>=2.20
+accelerate>=1.1
+
+# --- notebook tooling (execution / validation) ----------------------
+ipykernel>=6.29
+nbformat>=5.10
+nbclient>=0.10
+jupyter_client>=8.6
+# JupyterLab is the notebook *UI*. Running the notebook headlessly
+# (tools/run_notebook.py) only needs the four packages above; install this one
+# only if you want to open and step through the notebook by hand.
+jupyterlab>=4.0

@@ -1,0 +1,179 @@
+====================================================================
+NORTHWIND IT SERVICE DESK - INTERNAL TECHNICAL SUPPORT KNOWLEDGE BASE
+Document ID: KB-2024-EN-001
+Version: 4.2  |  Owner: IT Service Management Office  |  Audience: Level 1 Agents
+====================================================================
+
+## Account and Login
+
+Every employee receives a single corporate identity (SSO) in the format
+firstname.lastname@northwind.example. This identity is used for the intranet
+portal, the email system, the VPN and all cloud applications. Accounts are
+provisioned automatically 24 hours after the HR onboarding record is approved.
+
+If you have forgotten your password, open the Self-Service Portal at
+https://sso.northwind.example/reset and click "Forgot password". Enter your
+corporate email address and confirm the one-time code that is sent to your
+registered mobile phone number. A temporary password is issued and must be
+changed within 30 minutes of first use.
+
+Accounts are locked automatically after 5 consecutive failed login attempts.
+The lock expires on its own after 15 minutes, or a Level 1 agent can release it
+immediately in the Identity Console under Users > Unlock Account. Never ask a
+customer to send their password by email, chat or ticket comment; the Service
+Desk will never request a password.
+
+Multi-factor authentication (MFA) is mandatory for all remote access. If the
+customer has lost their phone, issue a temporary bypass token that is valid for
+8 hours, and open a Priority 3 ticket for the replacement authenticator.
+
+## Password Policy
+
+The password must contain at least 12 characters and include characters from at
+least three of the following categories: uppercase letters, lowercase letters,
+digits and special symbols. Passwords expire every 180 days. The last 10
+passwords cannot be reused. A password may not contain the username, the
+employee ID, or any of the company names.
+
+## Router Reset and Network Troubleshooting
+
+If the office router is unresponsive, first check the status LEDs on the front
+panel. A steady red WAN light means the uplink handshake has failed. A blinking
+amber light means the device is in recovery mode.
+
+To reset the router, perform these steps in order:
+
+Step 1. Save the current configuration: log in to the admin console at
+http://192.168.1.1 with the credentials on the asset label, then go to
+System > Backup and download the configuration file.
+
+Step 2. Perform a soft restart. Press and hold the RESET button on the rear
+panel for 5 seconds until the power LED starts blinking. Release the button and
+wait 3 minutes for the device to complete the boot sequence.
+
+Step 3. Perform a factory reset only if the soft restart fails. Press and hold
+the RESET button for 15 seconds until the status LED turns solid red, then
+release it. A factory reset erases the configuration and forces the device to
+the default LAN address 192.168.1.1 with the default credentials admin/admin.
+
+Step 4. Restore the configuration from the backup file taken in Step 1 and
+confirm that the WAN interface obtains an address by DHCP.
+
+After a factory reset the WiFi SSID returns to Northwind-Setup and the device
+must be re-joined to the corporate wireless controller before it will route
+traffic on the corporate VLAN.
+
+## Error Codes and HTTP Status Messages
+
+A 400 Bad Request means the server could not understand the request because of
+invalid syntax. Ask the customer to clear the browser cache and cookies, and to
+verify that the URL has no trailing spaces.
+
+A 401 Unauthorized means the credentials were missing or invalid. A 403
+Forbidden means the credentials were valid but the account lacks the required
+permission; raise an access request in the IAM portal.
+
+A 404 Not Found means the requested page or API endpoint does not exist at that
+address. In the customer portal, 404 is most often caused by a bookmark that
+points to a retired page. Ask the customer to navigate from the portal home page
+instead of using the bookmark.
+
+A 429 Too Many Requests means the client exceeded the rate limit of 60 requests
+per minute. Retry after 60 seconds and add exponential back-off to automated
+clients.
+
+A 500 Internal Server Error means the application raised an unhandled
+exception. Collect the correlation ID from the error page and escalate to
+Level 2 with the exact timestamp in UTC.
+
+A 502 Bad Gateway means the reverse proxy could not obtain a valid response from
+the upstream service. Check the service health dashboard first; if the upstream
+shows healthy, restart the proxy pod.
+
+A 503 Service Unavailable is usually returned during scheduled maintenance
+windows, which run on Sunday between 02:00 and 04:00 UTC. A 504 Gateway Timeout
+means the upstream did not answer within 30 seconds.
+
+## VPN and Remote Access
+
+The supported VPN client is Northwind Connect 3.x for Windows and macOS. Legacy
+clients 2.x are no longer supported because they use an obsolete cipher suite.
+
+The most frequent VPN error is "Authentication failed (E-1042)". This means the
+MFA challenge was not completed within 60 seconds. Ask the customer to start the
+connection again and to approve the push notification promptly.
+
+Error "E-2011 Tunnel establishment timeout" indicates that UDP port 1194 is
+blocked by the local network. Advise the customer to switch the client to
+TCP mode in Settings > Transport, or to use a different network such as a
+mobile hotspot.
+
+Split tunnelling is disabled by default; all traffic including internet traffic
+is routed through the corporate gateway. Request an exception from the security
+team if a customer needs split tunnelling for a specific application.
+
+## Billing and Subscriptions
+
+Invoices are issued on the first business day of each month and are due within
+30 days. The three subscription tiers are Basic, Standard and Premium. Premium
+includes 24x7 support with a 1-hour response target, and costs 49 USD per user
+per month when billed annually.
+
+A duplicate charge is normally a pending authorisation hold and disappears
+within 5 to 7 business days. If the charge has settled and is genuinely
+duplicated, open a Priority 2 ticket and attach the payment reference.
+
+Refunds are processed to the original payment method within 10 business days and
+can only be approved by the finance team. The Service Desk cannot issue refunds.
+
+## Software Installation and Licensing
+
+Standard software is deployed from the Company Portal. Applications that are not
+in the Company Portal require a software exception request approved by the
+line manager and by information security.
+
+A licence activation error "LIC-007 Seat limit reached" means all purchased seats
+are in use. Ask the customer to sign out of unused devices, or open a ticket for
+the procurement team to add seats.
+
+## Data Backup and Recovery
+
+User data on managed laptops is synchronised continuously to the corporate cloud
+drive. Local backup copies are taken every 4 hours by the backup agent.
+
+To restore a file, right-click the file or folder in the cloud drive web
+interface, choose "Version history", select the required timestamp and click
+Restore. Deleted items are retained in the recycle bin for 90 days.
+
+A restore request for data older than 90 days must be escalated to the storage
+team as Priority 3, because it requires a tape retrieval that takes up to
+5 business days.
+
+## Email and SMTP Configuration
+
+The outgoing mail server is smtp.northwind.example on port 587 with STARTTLS.
+Port 25 is blocked for all clients. The incoming server is
+imap.northwind.example on port 993 with SSL.
+
+If the customer reports "550 5.7.1 Message rejected as spam", ask them to check
+that the message does not contain an unusually large number of external links
+and that the attachment size is below the 25 MB limit.
+
+Mailboxes have a quota of 50 GB. When the quota reaches 90 percent the account
+can still receive mail but cannot send. Archive older mail to the online archive
+to free space.
+
+## Escalation and Contact
+
+Level 1 handles password resets, account unlocks, VPN client guidance, portal
+navigation and documented error codes. Level 2 handles server-side incidents and
+data-level corrections. Level 3 handles vendor escalations and release defects.
+
+Priority definitions: Priority 1 is a total outage affecting all users of a
+production service and has a 15-minute response target. Priority 2 is a
+significant degradation affecting a department or a single critical user.
+Priority 3 is a single-user issue with a workaround available.
+
+The Service Desk is reachable on the internal extension 4444 between 08:00 and
+20:00 local time on business days. Outside those hours the on-call engineer is
+reached through the emergency pager at https://pager.northwind.example.

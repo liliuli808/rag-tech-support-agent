@@ -1,0 +1,202 @@
+[
+  {
+    "page_content": "Every employee receives a single corporate identity (SSO) in the format\nfirstname.lastname@northwind.example. This identity is used for the intranet\nportal, the email system, the VPN and all cloud applications. Accounts are\nprovisioned automatically 24 hours after the HR onboarding record is approved.",
+    "metadata": {
+      "source": "tech_support.txt",
+      "section": "Account and Login",
+      "chunk_id": 0
+    }
+  },
+  {
+    "page_content": "If you have forgotten your password, open the Self-Service Portal at\nhttps://sso.northwind.example/reset and click \"Forgot password\". Enter your\ncorporate email address and confirm the one-time code that is sent to your\nregistered mobile phone number. A temporary password is issued and must be\nchanged within 30 minutes of first use.",
+    "metadata": {
+      "source": "tech_support.txt",
+      "section": "Account and Login",
+      "chunk_id": 1
+    }
+  },
+  {
+    "page_content": "Accounts are locked automatically after 5 consecutive failed login attempts.\nThe lock expires on its own after 15 minutes, or a Level 1 agent can release it\nimmediately in the Identity Console under Users > Unlock Account. Never ask a\ncustomer to send their password by email, chat or ticket comment; the Service\nDesk will never request a password.",
+    "metadata": {
+      "source": "tech_support.txt",
+      "section": "Account and Login",
+      "chunk_id": 2
+    }
+  },
+  {
+    "page_content": "Multi-factor authentication (MFA) is mandatory for all remote access. If the\ncustomer has lost their phone, issue a temporary bypass token that is valid for\n8 hours, and open a Priority 3 ticket for the replacement authenticator.",
+    "metadata": {
+      "source": "tech_support.txt",
+      "section": "Account and Login",
+      "chunk_id": 3
+    }
+  },
+  {
+    "page_content": "The password must contain at least 12 characters and include characters from at\nleast three of the following categories: uppercase letters, lowercase letters,\ndigits and special symbols. Passwords expire every 180 days. The last 10\npasswords cannot be reused. A password may not contain the username, the\nemployee ID, or any of the company names.",
+    "metadata": {
+      "source": "tech_support.txt",
+      "section": "Password Policy",
+      "chunk_id": 4
+    }
+  },
+  {
+    "page_content": "If the office router is unresponsive, first check the status LEDs on the front\npanel. A steady red WAN light means the uplink handshake has failed. A blinking\namber light means the device is in recovery mode.\n\nTo reset the router, perform these steps in order:\n\nStep 1. Save the current configuration: log in to the admin console at\nhttp://192.168.1.1 with the credentials on the asset label, then go to\nSystem > Backup and download the configuration file.",
+    "metadata": {
+      "source": "tech_support.txt",
+      "section": "Router Reset and Network Troubleshooting",
+      "chunk_id": 5
+    }
+  },
+  {
+    "page_content": "Step 2. Perform a soft restart. Press and hold the RESET button on the rear\npanel for 5 seconds until the power LED starts blinking. Release the button and\nwait 3 minutes for the device to complete the boot sequence.",
+    "metadata": {
+      "source": "tech_support.txt",
+      "section": "Router Reset and Network Troubleshooting",
+      "chunk_id": 6
+    }
+  },
+  {
+    "page_content": "Step 3. Perform a factory reset only if the soft restart fails. Press and hold\nthe RESET button for 15 seconds until the status LED turns solid red, then\nrelease it. A factory reset erases the configuration and forces the device to\nthe default LAN address 192.168.1.1 with the default credentials admin/admin.\n\nStep 4. Restore the configuration from the backup file taken in Step 1 and\nconfirm that the WAN interface obtains an address by DHCP.",
+    "metadata": {
+      "source": "tech_support.txt",
+      "section": "Router Reset and Network Troubleshooting",
+      "chunk_id": 7
+    }
+  },
+  {
+    "page_content": "After a factory reset the WiFi SSID returns to Northwind-Setup and the device\nmust be re-joined to the corporate wireless controller before it will route\ntraffic on the corporate VLAN.",
+    "metadata": {
+      "source": "tech_support.txt",
+      "section": "Router Reset and Network Troubleshooting",
+      "chunk_id": 8
+    }
+  },
+  {
+    "page_content": "A 400 Bad Request means the server could not understand the request because of\ninvalid syntax. Ask the customer to clear the browser cache and cookies, and to\nverify that the URL has no trailing spaces.\n\nA 401 Unauthorized means the credentials were missing or invalid. A 403\nForbidden means the credentials were valid but the account lacks the required\npermission; raise an access request in the IAM portal.",
+    "metadata": {
+      "source": "tech_support.txt",
+      "section": "Error Codes and HTTP Status Messages",
+      "chunk_id": 9
+    }
+  },
+  {
+    "page_content": "A 404 Not Found means the requested page or API endpoint does not exist at that\naddress. In the customer portal, 404 is most often caused by a bookmark that\npoints to a retired page. Ask the customer to navigate from the portal home page\ninstead of using the bookmark.\n\nA 429 Too Many Requests means the client exceeded the rate limit of 60 requests\nper minute. Retry after 60 seconds and add exponential back-off to automated\nclients.",
+    "metadata": {
+      "source": "tech_support.txt",
+      "section": "Error Codes and HTTP Status Messages",
+      "chunk_id": 10
+    }
+  },
+  {
+    "page_content": "A 500 Internal Server Error means the application raised an unhandled\nexception. Collect the correlation ID from the error page and escalate to\nLevel 2 with the exact timestamp in UTC.\n\nA 502 Bad Gateway means the reverse proxy could not obtain a valid response from\nthe upstream service. Check the service health dashboard first; if the upstream\nshows healthy, restart the proxy pod.",
+    "metadata": {
+      "source": "tech_support.txt",
+      "section": "Error Codes and HTTP Status Messages",
+      "chunk_id": 11
+    }
+  },
+  {
+    "page_content": "A 503 Service Unavailable is usually returned during scheduled maintenance\nwindows, which run on Sunday between 02:00 and 04:00 UTC. A 504 Gateway Timeout\nmeans the upstream did not answer within 30 seconds.",
+    "metadata": {
+      "source": "tech_support.txt",
+      "section": "Error Codes and HTTP Status Messages",
+      "chunk_id": 12
+    }
+  },
+  {
+    "page_content": "The supported VPN client is Northwind Connect 3.x for Windows and macOS. Legacy\nclients 2.x are no longer supported because they use an obsolete cipher suite.\n\nThe most frequent VPN error is \"Authentication failed (E-1042)\". This means the\nMFA challenge was not completed within 60 seconds. Ask the customer to start the\nconnection again and to approve the push notification promptly.",
+    "metadata": {
+      "source": "tech_support.txt",
+      "section": "VPN and Remote Access",
+      "chunk_id": 13
+    }
+  },
+  {
+    "page_content": "Error \"E-2011 Tunnel establishment timeout\" indicates that UDP port 1194 is\nblocked by the local network. Advise the customer to switch the client to\nTCP mode in Settings > Transport, or to use a different network such as a\nmobile hotspot.\n\nSplit tunnelling is disabled by default; all traffic including internet traffic\nis routed through the corporate gateway. Request an exception from the security\nteam if a customer needs split tunnelling for a specific application.",
+    "metadata": {
+      "source": "tech_support.txt",
+      "section": "VPN and Remote Access",
+      "chunk_id": 14
+    }
+  },
+  {
+    "page_content": "Invoices are issued on the first business day of each month and are due within\n30 days. The three subscription tiers are Basic, Standard and Premium. Premium\nincludes 24x7 support with a 1-hour response target, and costs 49 USD per user\nper month when billed annually.\n\nA duplicate charge is normally a pending authorisation hold and disappears\nwithin 5 to 7 business days. If the charge has settled and is genuinely\nduplicated, open a Priority 2 ticket and attach the payment reference.",
+    "metadata": {
+      "source": "tech_support.txt",
+      "section": "Billing and Subscriptions",
+      "chunk_id": 15
+    }
+  },
+  {
+    "page_content": "Refunds are processed to the original payment method within 10 business days and\ncan only be approved by the finance team. The Service Desk cannot issue refunds.",
+    "metadata": {
+      "source": "tech_support.txt",
+      "section": "Billing and Subscriptions",
+      "chunk_id": 16
+    }
+  },
+  {
+    "page_content": "Standard software is deployed from the Company Portal. Applications that are not\nin the Company Portal require a software exception request approved by the\nline manager and by information security.\n\nA licence activation error \"LIC-007 Seat limit reached\" means all purchased seats\nare in use. Ask the customer to sign out of unused devices, or open a ticket for\nthe procurement team to add seats.",
+    "metadata": {
+      "source": "tech_support.txt",
+      "section": "Software Installation and Licensing",
+      "chunk_id": 17
+    }
+  },
+  {
+    "page_content": "User data on managed laptops is synchronised continuously to the corporate cloud\ndrive. Local backup copies are taken every 4 hours by the backup agent.\n\nTo restore a file, right-click the file or folder in the cloud drive web\ninterface, choose \"Version history\", select the required timestamp and click\nRestore. Deleted items are retained in the recycle bin for 90 days.",
+    "metadata": {
+      "source": "tech_support.txt",
+      "section": "Data Backup and Recovery",
+      "chunk_id": 18
+    }
+  },
+  {
+    "page_content": "A restore request for data older than 90 days must be escalated to the storage\nteam as Priority 3, because it requires a tape retrieval that takes up to\n5 business days.",
+    "metadata": {
+      "source": "tech_support.txt",
+      "section": "Data Backup and Recovery",
+      "chunk_id": 19
+    }
+  },
+  {
+    "page_content": "The outgoing mail server is smtp.northwind.example on port 587 with STARTTLS.\nPort 25 is blocked for all clients. The incoming server is\nimap.northwind.example on port 993 with SSL.\n\nIf the customer reports \"550 5.7.1 Message rejected as spam\", ask them to check\nthat the message does not contain an unusually large number of external links\nand that the attachment size is below the 25 MB limit.",
+    "metadata": {
+      "source": "tech_support.txt",
+      "section": "Email and SMTP Configuration",
+      "chunk_id": 20
+    }
+  },
+  {
+    "page_content": "Mailboxes have a quota of 50 GB. When the quota reaches 90 percent the account\ncan still receive mail but cannot send. Archive older mail to the online archive\nto free space.",
+    "metadata": {
+      "source": "tech_support.txt",
+      "section": "Email and SMTP Configuration",
+      "chunk_id": 21
+    }
+  },
+  {
+    "page_content": "Level 1 handles password resets, account unlocks, VPN client guidance, portal\nnavigation and documented error codes. Level 2 handles server-side incidents and\ndata-level corrections. Level 3 handles vendor escalations and release defects.",
+    "metadata": {
+      "source": "tech_support.txt",
+      "section": "Escalation and Contact",
+      "chunk_id": 22
+    }
+  },
+  {
+    "page_content": "Priority definitions: Priority 1 is a total outage affecting all users of a\nproduction service and has a 15-minute response target. Priority 2 is a\nsignificant degradation affecting a department or a single critical user.\nPriority 3 is a single-user issue with a workaround available.",
+    "metadata": {
+      "source": "tech_support.txt",
+      "section": "Escalation and Contact",
+      "chunk_id": 23
+    }
+  },
+  {
+    "page_content": "The Service Desk is reachable on the internal extension 4444 between 08:00 and\n20:00 local time on business days. Outside those hours the on-call engineer is\nreached through the emergency pager at https://pager.northwind.example.",
+    "metadata": {
+      "source": "tech_support.txt",
+      "section": "Escalation and Contact",
+      "chunk_id": 24
+    }
+  }
+]
